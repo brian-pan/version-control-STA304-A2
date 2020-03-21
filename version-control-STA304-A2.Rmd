@@ -203,12 +203,24 @@ y_bar_st = W1*y1_bar + W2*y2_bar
 y_bar_st
 x_bar_st = W1*x1_bar + W2*x2_bar
 x_bar_st
+
+# combined ratio estimate of mean:
+mu_hat_cr = (y_bar_st/x_bar_st)*popMu
+mu_hat_cr
 ```
 Based on the R output, we obtain that:\
 <center>$\mu_x= W_1*\mu_{x_1}+W_2*\mu_{x_2}=152.3333$</center>\
 <center>$\bar y_{st}= W_1*\bar y_{1}+W_2*\bar y_2=153.6667$</center>\
 <center>$\bar x_{st}= W_1*\bar x_{1}+W_2*\bar x_2=145.6667$</center>\
+The combined ratio estimate of $\mu$ is:\
+<center>$\hat\mu_{cr}=(\bar y_{st}/\bar x_{st})\times\mu_x=160.6995$</center>\
 \
+```{r part3_a_2}
+# for stratum 1:
+s2_cr_1 = 
+# estimated variance:
+var_hat_mu_hat_cr = 
+```
 
 
 
