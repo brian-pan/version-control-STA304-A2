@@ -22,6 +22,37 @@ y2 <- c(150, 200, 125, 60, 110, 100, 180, 75, 90)
 n2 = length(y2)
 
 
+# total population size
+N = N1+N2
+# weight
+W1 = N1/N
+W2 = N2/N
+# fractions
+f1 = n1/N1
+f2 = n2/N2
+# sample mean for brand I
+y1_bar = mean(y1)
+x1_bar = mean(x1)
+# sample mean for Brand II
+y2_bar = mean(y2)
+x2_bar = mean(x2)
+# sample variance for brand I
+y1_s2 = var(y1)
+x1_s2 = var(x1)
+# sample variance for Brand II
+y2_s2 = var(y2)
+x2_s2 = var(x2)
+# coefficients between x and y (brand I)
+corr1 = cor(y1, x1)
+# coefficients between x and y (brand II)
+corr2 = cor(y2, x2)
+
+
+
+
+
+
+
 
 # Question 4
 # load data
