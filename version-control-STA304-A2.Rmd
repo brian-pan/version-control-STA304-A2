@@ -1,17 +1,19 @@
 ---
 title: "STA304 A2"
-author: "Brian"
-date: "3/20/2020"
-output: pdf_document
+author: "Zifan Pan"
+date: '1004067332'
+output:
+  html_document:
+    df_print: paged
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-# **Assignment 2**
-**Question 3**
-
-```{r input info}
+## **Assignment 2**\
+### **Question 3**\
+\
+```{r input info, echo=TRUE}
 # Name Brand I stratum 1:
 N1 = 120
 lastyrSale1 = 24500
@@ -32,8 +34,115 @@ x2 <- c(137, 189, 119, 63, 103, 107, 159, 63, 87)
 y2 <- c(150, 200, 125, 60, 110, 100, 180, 75, 90)
 # number of samples:
 n2 = length(y2)
-```
 
+
+# total population size
+N = N1+N2
+# weight
+W1 = N1/N
+W2 = N2/N
+# fractions
+f1 = n1/N1
+f2 = n2/N2
+# sample mean for brand I
+y1_bar = mean(y1)
+x1_bar = mean(x1)
+# sample mean for Brand II
+y2_bar = mean(y2)
+x2_bar = mean(x2)
+# sample variance for brand I
+y1_s2 = var(y1)
+x1_s2 = var(x1)
+# sample variance for Brand II
+y2_s2 = var(y2)
+x2_s2 = var(x2)
+# coefficients between x and y (brand I)
+corr1 = cor(y1, x1)
+# coefficients between x and y (brand II)
+corr2 = cor(y2, x2)
+
+```
+\
+#### **Part 1**\
+```{r part1_1}
+tau_hat = N1*y1_bar+N2*y2_bar
+tau_hat
+```
+\
+From the output above, the basic estimate of total potential sales is:\
+<center>$\hat\tau=\hat\tau_1+\hat\tau_2=(N_1\bar y_1)+(N_2\bar y_2)=46100$</center>\
+\
+```{r part1_2}
+var_hat_mu_hat_1 = (1-f1)*(y1_s2/n1)
+var_hat_mu_hat_2 = (1-f2)*(y2_s2/n2)
+var_hat_tau_hat = N1^2*var_hat_mu_hat_1+N2^2*var_hat_mu_hat_2
+var_hat_tau_hat
+```
+\
+From the output above, the estimated variance is:\
+<center>$\hat V(\hat\tau)=\hat V(\hat\tau_1)+\hat V(\hat\tau_2)= N_1^2\times(1-n_1/N_1)\times s^2_{y_1}/n_1 +N_2^2\times(1-n_2/N_2)\times s^2_{y_2}/n_2=23075975$ </center>\
+\
+#### **Part 2**\
+**(a)**\
+```{r part2_1}
+# ratio
+r1 = y1_bar/x1_bar
+r2 = y2_bar/x2_bar
+mu_y_hat_sr_1 = W1*r1*popMu1
+mu_y_hat_sr_2 = W2*r2*popMu2
+mu_y_hat_sr = mu_y_hat_sr_1+mu_y_hat_sr_2
+tau_y_hat_sr = N*mu_y_hat_sr
+tau_y_hat_sr
+```
+From the output above, the ratio estimate of the total potential sales is:\
+<center>$\hat\tau_{y,SR}= N\times\hat\mu_{y,SR}=N[W_1\times(\bar y_1/\bar x_1)\times \mu_{x_1} + W_2\times (\bar y_2/\bar x_2)\times \mu_{x_2}]=48206.45$</center>\
+\
+```{r part2_2}
+r1_s2 = var(y1-r1*x1)
+r2_s2 = var(y2-r2*x2)
+var_hat_mu_r_hat_1 = (1-f1)*(r1_s2/n1)
+var_hat_mu_r_hat_2 = (1-f2)*(r2_s2/n2)
+weight_var_1 = W1^2*var_hat_mu_r_hat_1
+weight_var_2 = W2^2*var_hat_mu_r_hat_2
+weight_var = weight_var_1+weight_var_2
+var_tau_hat_y_sr = weight_var*N^2
+var_tau_hat_y_sr
+```
+From the output above, the estimated variance is:\
+<center>$\hat V(\hat\tau_{y,SR})=N^2[W_1^2\times(1-n_1/N_1)\times(s^{r_1}/n_1)+W_2^2\times(1-n_2/N_2)\times(s^{r_2}/n_2)]= 564612.8 $</center>\
+\
+**(b)**:\
+```{r part2_b_1}
+# cross products between x, y:
+sx1y1 = sum((x1-mean(x1))*(y1-mean(y1)))/(n1-1)
+sx2y2 = sum((x2-mean(x2))*(y2-mean(y2)))/(n2-1)
+# regression coefficient for brand I:
+b1 = sx1y1/x1_s2
+b2 = sx2y2/x2_s2
+a1 = y1_bar-b1*x1_bar
+a2 = y2_bar-b2*x2_bar
+# output
+b1
+b2
+a1
+a2
+```
+From the R output above, the regression coefficient for strata 1 is:\
+<center>$b_1=s_{x_1y_1}/s^2_{x_1}=1.1370$</center>\
+<center>$a_1=\bar y_1-b_1\bar x_1=-16.93784$</center>\
+From the R output above, the regression coefficient for strata 2 is:\
+<center>$b_2=s_{x_2y_2}/s^2_{x_2}=1.1065$</center>\
+<center>$a_2=\bar y_2-b_2\bar x_2=-5.157056$</center>\
+\
+```{r part2_b_2}
+mu_l_hat_1 = y1_bar+b1*(popMu1-x1_bar)
+mu_l_hat_2 = y2_bar+b2*(popMu2-x2_bar)
+mu_l_hat_sr_1 = W1*mu_l_hat_1
+mu_l_hat_sr_2 = W2*mu_l_hat_2
+mu_l_hat_sr = mu_l_hat_sr_1 + mu_l_hat_sr_2
+tau_l_hat_sr = N*mu_l_hat_sr
+tau_l_hat_sr
+```
 
 
 
