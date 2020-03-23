@@ -216,11 +216,28 @@ The combined ratio estimate of $\mu$ is:\
 <center>$\hat\mu_{cr}=(\bar y_{st}/\bar x_{st})\times\mu_x=160.6995$</center>\
 \
 ```{r part3_a_2}
+# ratio (CR):
+r_cr = (y_bar_st/x_bar_st)
 # for stratum 1:
-s2_cr_1 = 
+s2_cr1 = sum((y1-r_cr*x1)^2)/(n1-1)
+s2_cr2 = sum((y2-r_cr*x2)^2)/(n2-1)
+s2_cr1
+s2_cr2
 # estimated variance:
-var_hat_mu_hat_cr = 
+var_hat_mu_hat_cr = W1^2*(1-f1)*(s2_cr1/n1) + W2^2*(1-f2)*(s2_cr2/n2)
+var_hat_mu_hat_cr
 ```
+From the output above, the estimated variance is:\
+<center>$\hat V(\hat\mu_{cr})=W_1^2\times(1-n_1/N_1)\times(s^2_{cr,1}/n_1) + W_2^2\times(1-n_2/N_2)\times(s^2_{cr,2}/n_2)=6.25$</center>\
+<center>where $s^2_{cr,1}=[\sum^{n_1}_{j=1}(y_j-\hat r_{cr}x_j)^2/(n_1-1)]=159.2125$,</center>\
+<center>and $s^2_{cr,2}=[\sum^{n_2}_{j=1}(y_j-\hat r_{cr}x_j)^2/(n_2-1)]=58.3233$</center>\
+\
+**(b)**\
+
+
+
+
+
 
 
 
