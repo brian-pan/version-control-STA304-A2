@@ -54,6 +54,17 @@ corr2 = cor(y2, x2)
 
 
 
+
+
+
+
+
+
+
+
+
+
+
 # Question 4
 # load data
 mydata<-read.csv("StudentsMarks.csv")
