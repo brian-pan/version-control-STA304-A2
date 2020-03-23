@@ -319,17 +319,7 @@ The R output calculated above is the relative efficiency of basic estimator ($\h
 
 
 
-
-
-
-
-
-
-
-
-
-
-## **Q4:**
+### **Question 3**\
 ```{r}
 # load data
 mydata<-read.csv("StudentsMarks.csv")
@@ -339,4 +329,52 @@ x<-na.omit(mydata$Test.1)
 N<-length(x)
 N
 ```
+**(a)**:\
+```{r a_1}
+# explore data
+head(mydata)
+# histogram of population values:
+hist(mydata$Test.1, breaks=100, include.lowest=FALSE, freq=TRUE, right=TRUE, xlab="scores")
+```
+\
+```{r a_2}
+mean_t1 = mean(x)
+mean_t1
+sd_t1 = sd(x)
+sd_t1
+```
+The population mean (mean of test 1) is: 70.7917; And the standard
+deviation is 15.5203.\
+\
+**(b)**:\
+```{r b_1}
+# systematic sampling (size 20)
+set.seed(1)
+k = 20
+start = sample(1:k, 1)
+s = seq(start, N, k)
+s
+
+n = length(s)
+# estimation of the average mark of students:
+mu_hat_x = (1/n)*sum(x[s])
+mu_hat_x
+s2_x = var(x)
+var_hat_x_bar = ((N-n)/N)*(s2_x/n)
+B1 = sqrt(var_hat_x_bar)*2
+B1
+
+CI_upper1 = mu_hat_x+B1
+CI_lower1 = mu_hat_x-B1
+CI_upper1
+CI_lower1
+```
+From the R output above, the index of students are:\
+<center>$4,  24,  44,  64,  84, 104, 124, 144, 164, 184, 204, 224, 244, 264, 284, 304$</center>\
+The estimated average mark of students is: 69.9375;\
+The 95% bound on the error (used 2 instead of 1.96 as an approximation) is: $B_1=2*\sqrt{\hat Var(\hat x)}=7.5585$\
+The 95% confidence interval (used 2 instead of 1.96 as an approximation) is: (62.3790, 77.4961).
+
+
+
 
