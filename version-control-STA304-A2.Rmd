@@ -3,9 +3,9 @@ title: "STA304 A2"
 author: "Zifan Pan"
 date: 'Student Number: 1004067332'
 output:
-  html_document:
-    df_print: paged
-  pdf_document: default
+  md_document:
+    variant: markdown_github
+    
 ---
 
 ```{r setup, include=FALSE}
