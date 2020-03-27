@@ -322,6 +322,109 @@ The R output calculated above is the relative efficiency of basic estimator ($\h
 
 
 
+## **Assignment 2**\
+### **Question 4**
+```{r}
+# load data
+mydata<-read.csv("StudentsMarks.csv")
+# use x to record term test 1 marks,
+# after removing students who missed the test.
+x<-na.omit(mydata$Test.1)
+N<-length(x)
+N
+```
+**(a)**:
+```{r a_1,message=FALSE}
+# explore data
+head(mydata)
+# histogram of population values:
+hist(mydata$Test.1, breaks=100, include.lowest=FALSE, freq=TRUE, right=TRUE, xlab="scores")
+```
+\
+```{r a_2}
+mean_t1 = mean(x)
+mean_t1
+sd_t1 = sd(x)
+sd_t1
+```
+The population mean (mean of test 1) is: 70.7917; And the standard
+deviation is 15.5203.\
+\
+**(b)**:
+```{r b_1}
+# systematic sampling (size 20)
+set.seed(1)
+k = 20
+start = sample(1:k, 1)
+s = seq(start, N, k)
+s
+
+n = length(s)
+# estimation of the average mark of students:
+mu_hat_x = (1/n)*sum(x[s])
+mu_hat_x
+s2_x = var(x[s])
+var_hat_x_bar = ((N-n)/N)*(s2_x/n)
+B1 = sqrt(var_hat_x_bar)*2
+B1
+
+CI_upper1 = mu_hat_x+B1
+CI_lower1 = mu_hat_x-B1
+CI_upper1
+CI_lower1
+```
+From the R output above, the index of students are:\
+<center>$4,  24,  44,  64,  84, 104, 124, 144, 164, 184, 204, 224, 244, 264, 284, 304$</center>\
+The estimated average mark of students is: 69.9375;\
+The 95% bound on the error (used 2 instead of 1.96 as an approximation) is: $B_1=2*\sqrt{\hat Var(\hat x)}=7.4614$;\
+The 95% confidence interval (used 2 instead of 1.96 as an approximation) is: (62.4761, 77.3990).\
+\
+**(c)**:
+```{r c_1}
+# systematic sampling (size 10)
+set.seed(3)
+np = 10
+ns = 5
+kp = floor(N/np)
+
+first = sample(1:kp, ns)
+sys1 = seq(first[1], N, kp)
+sys2 = seq(first[2], N, kp)
+sys3 = seq(first[3], N, kp)
+sys4 = seq(first[4], N, kp)
+sys5 = seq(first[5], N, kp)
+
+lst = c(sys1,sys2,sys3,sys4,sys5)
+lst
+
+n2 = length(lst)
+# estimation of the average mark of students:
+mu_hat_x2 = (1/n2)*sum(x[lst])
+mu_hat_x2
+s2_x2 = var(x[lst])
+var_hat_x_bar2 = ((N-n2)/N)*(s2_x2/n2)
+B2 = sqrt(var_hat_x_bar2)*2
+B2
+
+CI_upper2 = mu_hat_x2+B2
+CI_lower2 = mu_hat_x2-B2
+CI_upper2
+CI_lower2
+```
+From the R output above, the estimated average mark of students is:\
+<center>$\hat\mu=\bar y_{sys,rep}=(1/n_s)\sum^{n_s}_{i=1}\bar y_i=(1/n)\sum^{n_s}_{i=1}y_i=\bar y_{sys}=70.48$</center>
+The 95% bound on the error (used 2 instead of 1.96 as an approximation) is: $B_1=2*\sqrt{\hat Var(\hat x)}=4.2590$;\
+The 95% confidence interval (used 2 instead of 1.96 as an approximation) is: (66.221, 74.739).\
+\
+**(d):**
+The method in (c) is preferred than (b), since it has a larger sample size, a smaller bound on the error, and a smaller confidence interval. Therefore, the repeated systematic samples of size 10 gives a more accurate estimation.\
+\
+\
+**END of Question 4.**
+
+
+
+
 
 
 
